@@ -1,20 +1,22 @@
 console.log("JS connected");
 
-
-// document → sayfanın kendisi
-// querySelector → “bana şunu ver”
+// document → sayfanın kendisi (DOM Object)
+// querySelector → “bana şunu ver” (DOM Selection Method)
 // JavaScript, DOM üzerinden HTML’i kontrol eder.
-const form = document.querySelector("form");
+// DOM Elemanlarını Yakalama:
+const form = document.querySelector("form"); // <form> etiketi 
 const titleInput = document.querySelector("#taskTitle");
 const descriptionInput = document.querySelector("#taskDescription");
-const taskList = document.querySelector("#task-list");
+const taskList = document.querySelector("#task-list"); // "#" id demek
 
-console.log(form, titleInput, descriptionInput, taskList);
+// Seçilen elemanları kontrol etme
+console.log(form, titleInput, descriptionInput, taskList); // Multiple console.log
 
-let tasks = [];
+let tasks = []; // Task’leri tutacak veri yapısı (Tüm görevlerin bellekte tutulduğu yer.)
 
-// DOM çizme fonksiyonu:
+// DOM’a task ekleyen fonksiyon: Bir task’ı alıp: HTML elemanlarını oluşturur, sayfaya ekler
 function addTaskToDOM(task, index){
+   // createElement() → DOM Creation (HTML’de önceden yok olan elemanları JS ile üretir.)
    const li = document.createElement("li");
 
    const strong = document.createElement("strong");
@@ -31,17 +33,20 @@ function addTaskToDOM(task, index){
    checkbox.checked = task.completed;
 
 
-   // Checkbox event:
+   // Checkbox event (tamamlandı mı?):
    checkbox.addEventListener("change", function () { // event adı change (bu satır şu anlama geliyor. “Checkbox’ın durumu değiştiğinde bu fonksiyonu çalıştır.”)
      console.log("Task Completed butonuna basıldı.")
 
-     tasks[index].completed = checkbox.checked;
+     tasks[index].completed = checkbox.checked;  // .completed --> Task objesinin özelliği
      console.log(index);
 
-     localStorage.setItem("tasks", JSON.stringify(tasks));
- 
-     li.classList.toggle("completed", checkbox.checked);
+     localStorage.setItem("tasks", JSON.stringify(tasks)); // Güncellenmiş tasks array’i String’e çevrilir. Tarayıcıya kalıcı olarak kaydedilir
+     // NEDEN burada? Çünkü: Checkbox’a tıklandı → data değişti. Data değişti → hemen kaydet
+     // Olmasaydı? Checkbox işaretlenir. Sayfa yenilenir. Her şey geri gider
+
+     li.classList.toggle("completed", checkbox.checked); // Checkbox true ise: completed class’ı ekler. False ise: kaldırır
      /*
+    // Yukarıdaki toggle'nin uzun hali:
     if (checkbox.checked){
         li.classList.add("completed")
     }
@@ -52,8 +57,14 @@ function addTaskToDOM(task, index){
      */
    });
 
+  // NOT: DOM elemanı nerede oluşturuluyorsa, ona ait event orada yazılır
   // Delete event
   deleteBtn.addEventListener("click", function () {
+    // Sırayla:
+    // 1) Data’dan siler
+    // 2) Kalıcı olarak kaydeder
+    // 3) Ekrandan kaldırır
+
     tasks.splice(index, 1); //index, sildiğin task’ın tasks array’indeki sırası. array.splice(nereden, kaçTane) siler. Data’dan gerçekten siliyor. Bu olmadan: localStorage güncellenemez, silme kalıcı olmaz.
     localStorage.setItem("tasks", JSON.stringify(tasks)); //“GÜNCELLENMİŞ task listesini tekrar kaydet” demek. Yani silinen task artık yok.
     li.remove(); // Bu da sadece görseltemizlik, kullanıcı silindei görsün diye.
@@ -115,11 +126,12 @@ form.addEventListener("submit", function (event){
     titleInput.value = ""
     descriptionInput.value = ""
 
+    // Test
     localStorage.setItem("test", "Merhaba Betül");
     console.log(localStorage.getItem("test")); 
 })
 
-// Sayfa açılınca LocalStorage’tan okuma
+// Sayfa açılınca LocalStorage’tan okuma ve veriyi geri yükleme
 const savedTasks = localStorage.getItem("tasks");
 
 if (savedTasks){
@@ -129,3 +141,5 @@ if (savedTasks){
         addTaskToDOM(task, index);
     });
 }
+
+console.log("all tasks",tasks)
