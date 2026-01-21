@@ -1,0 +1,165 @@
+/* 1️⃣ Genel reset */
+/* * → sayfadaki TÜM HTML elemanlarını seçer */
+* {
+  margin: 0;          /* Tüm elemanların dış boşluğunu sıfırlar */
+  padding: 0;         /* Tüm elemanların iç boşluğunu sıfırlar */
+  box-sizing: border-box; 
+  /* 
+    width / height hesaplanırken
+    padding ve border dahil edilsin diye kullanılır
+    (layout hesapları daha kolay olur)
+  */
+}
+
+/* 2️⃣ Sayfa genel görünüm */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  /* Yazı tipi sırası:
+     - Önce Arial
+     - Yoksa Helvetica
+     - O da yoksa sistemin varsayılan sans-serif fontu
+  */
+
+  background-color: #f4f6f8;
+  /* Sayfanın arka plan rengi */
+
+  color: #333;
+  /* Varsayılan yazı rengi (koyu gri) */
+
+  line-height: 1.6;
+  /* Satırlar arası boşluk (okunabilirlik için) */
+}
+
+/* 3️⃣ Üst başlık */
+header {
+  background-color: #1f2937;
+  /* Header arka plan rengi (koyu lacivert/gri) */
+
+  color: #fff;
+  /* Header içindeki yazıların rengi (beyaz) */
+
+  padding: 20px;
+  /* Header’ın iç boşluğu */
+
+  text-align: center;
+  /* Header içindeki yazıları ortalar */
+}
+
+/* 4️⃣ Ana içerik alanı */
+main {
+  max-width: 800px;
+  /* İçeriğin maksimum genişliği */
+
+  margin: 30px auto;
+  /* 
+    30px → üst-alt boşluk
+    auto → sağ-sol otomatik (ortalama sağlar)
+  */
+
+  background: #fff;
+  /* Ana alanın arka plan rengi */
+
+  padding: 20px;
+  /* İçerik ile kenarlar arasındaki boşluk */
+
+  border-radius: 8px;
+  /* Köşeleri yuvarlatır */
+}
+
+/* 5️⃣ Bölümler */
+section {
+  margin-bottom: 30px;
+  /* Her section’ın altına boşluk bırakır */
+}
+
+h2 {
+  margin-bottom: 10px;
+  /* Başlık ile altındaki içerik arasına boşluk */
+}
+
+/* 6️⃣ Form elemanları */
+input,
+textarea {
+  width: 100%;
+  /* Bulunduğu alanın tamamını kaplar */
+
+  padding: 10px;
+  /* İç boşluk (yazı kenara yapışmasın diye) */
+
+  border: 1px solid #ccc;
+  /* İnce gri kenarlık */
+
+  border-radius: 6px;
+  /* Köşeleri yuvarlatır */
+
+  font-size: 14px;
+  /* Yazı boyutu */
+}
+
+textarea {
+  resize: vertical;
+  /* Kullanıcı sadece yukarı-aşağı büyütebilir */
+
+  min-height: 80px;
+  /* Minimum yüksekliği 80px */
+}
+
+/* 7️⃣ Buton */
+button {
+  background-color: #2563eb;
+  /* Butonun arka plan rengi (mavi) */
+
+  color: #fff;
+  /* Yazı rengi (beyaz) */
+
+  border: none;
+  /* Varsayılan buton kenarlığını kaldırır */
+
+  padding: 10px 16px;
+  /* 
+    10px → üst-alt
+    16px → sağ-sol iç boşluk
+  */
+
+  border-radius: 6px;
+  /* Köşeleri yuvarlatır */
+
+  cursor: pointer;
+  /* Üzerine gelince el işareti çıkar */
+
+  font-size: 14px;
+  /* Yazı boyutu */
+}
+
+button:hover {
+  background-color: #1d4ed8;
+  /* Mouse butonun üstüne gelince rengi koyulaşır */
+}
+
+/* 8️⃣ Task listesi */
+ul {
+  list-style: none;
+  /* Liste başındaki nokta / tireleri kaldırır */
+}
+
+li {
+  background: #f9fafb;
+  /* Liste elemanının arka plan rengi */
+
+  border: 1px solid #e5e7eb;
+  /* Açık gri çerçeve */
+
+  padding: 12px;
+  /* İç boşluk */
+
+  border-radius: 6px;
+  /* Köşeleri yuvarlatır */
+
+  margin-bottom: 10px;
+  /* Liste elemanları arasına boşluk */
+}
+
+.completed {
+  text-decoration: line-through;
+  opacity: 0.6;
+}

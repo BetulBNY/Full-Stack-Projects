@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vanilla JS Task Manager</title>
+  <link rel="stylesheet" href="css/style.css">     <!-- HTML'e CSS bağlama kısmı -->
+</head>
+<body>
+
+  <header>
+    <h1>Task Manager</h1>
+    <p>Incoming Requests Dashboard</p>
+  </header>
+
+  <main>
+
+    <!-- Task ekleme formu -->
+    <section>
+      <h2>Add New Task</h2>
+
+      <form>
+        <label for="taskTitle">Task Title</label><br />
+        <input type="text" id="taskTitle" placeholder="Enter task title" />
+
+        <br /><br />
+
+        <label for="taskDescription">Description</label><br />
+        <textarea id="taskDescription" placeholder="Enter task description"></textarea>
+
+        <br /><br />
+
+        <button type="submit">Add Task</button>
+      </form>
+    </section>
+
+    <hr />
+
+    <!-- Task listesi -->
+    <section>
+      <h2>Task List</h2>
+
+      <ul id = "task-list">
+        <!-- JS ile buraya task eklenecek -->
+      </ul>
+    </section>
+
+  </main>
+<script src="js/app.js"></script>
+</body>
+</html>
