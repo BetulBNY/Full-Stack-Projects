@@ -15,7 +15,7 @@ console.log(form, titleInput, descriptionInput, taskList); // Multiple console.l
 let tasks = []; // Task’leri tutacak veri yapısı (Tüm görevlerin bellekte tutulduğu yer.)
 
 // DOM’a task ekleyen fonksiyon: Bir task’ı alıp: HTML elemanlarını oluşturur, sayfaya ekler
-function addTaskToDOM(task, index){
+function addTaskToDOM(task){
    // createElement() → DOM Creation (HTML’de önceden yok olan elemanları JS ile üretir.)
    const li = document.createElement("li");
 
@@ -37,8 +37,9 @@ function addTaskToDOM(task, index){
    checkbox.addEventListener("change", function () { // event adı change (bu satır şu anlama geliyor. “Checkbox’ın durumu değiştiğinde bu fonksiyonu çalıştır.”)
      console.log("Task Completed butonuna basıldı.")
 
-     tasks[index].completed = checkbox.checked;  // .completed --> Task objesinin özelliği
-     console.log(index);
+     const taskIndex = tasks.findIndex(t => t.id === task.id); // t → o anda dolaşılan eleman
+     tasks[taskIndex].completed = checkbox.checked;  // .completed --> Task objesinin özelliği
+     console.log(taskIndex);
 
      localStorage.setItem("tasks", JSON.stringify(tasks)); // Güncellenmiş tasks array’i String’e çevrilir. Tarayıcıya kalıcı olarak kaydedilir
      // NEDEN burada? Çünkü: Checkbox’a tıklandı → data değişti. Data değişti → hemen kaydet
@@ -64,8 +65,8 @@ function addTaskToDOM(task, index){
     // 1) Data’dan siler
     // 2) Kalıcı olarak kaydeder
     // 3) Ekrandan kaldırır
-
-    tasks.splice(index, 1); //index, sildiğin task’ın tasks array’indeki sırası. array.splice(nereden, kaçTane) siler. Data’dan gerçekten siliyor. Bu olmadan: localStorage güncellenemez, silme kalıcı olmaz.
+    const taskIndex = tasks.findIndex(t => t.id === task.id);
+    tasks.splice(taskIndex, 1); //index, sildiğin task’ın tasks array’indeki sırası. array.splice(nereden, kaçTane) siler. Data’dan gerçekten siliyor. Bu olmadan: localStorage güncellenemez, silme kalıcı olmaz.
     localStorage.setItem("tasks", JSON.stringify(tasks)); //“GÜNCELLENMİŞ task listesini tekrar kaydet” demek. Yani silinen task artık yok.
     li.remove(); // Bu da sadece görseltemizlik, kullanıcı silindei görsün diye.
     // Sıra şu şekilde:
@@ -111,6 +112,7 @@ form.addEventListener("submit", function (event){
 
     // Data'yı Local Storage'a kaydetme kısmı böylece sayfa yenilendiğinde bile bu veriler hala kalıyor olacak.
     const newTask = {
+        id: Date.now(), 
         title: title,
         description: description,
         completed: false
@@ -120,7 +122,7 @@ form.addEventListener("submit", function (event){
 
     localStorage.setItem("tasks", JSON.stringify(tasks));
     
-    addTaskToDOM(newTask, tasks.length-1);
+    addTaskToDOM(newTask);
     
     // inputları task liste eklendikten sonra siliyoruz:
     titleInput.value = ""
@@ -137,8 +139,8 @@ const savedTasks = localStorage.getItem("tasks");
 if (savedTasks){
     tasks = JSON.parse(savedTasks)
 
-    tasks.forEach(function(task, index){
-        addTaskToDOM(task, index);
+    tasks.forEach(function(task){
+        addTaskToDOM(task);
     });
 }
 
